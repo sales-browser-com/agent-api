@@ -6,6 +6,6 @@ from app.services.icp import generate_icp_service
 router = APIRouter()
 
 @router.post('/generate')
-async def generate_icp(icp_data: GenerateICPDTO):
-    return await generate_icp_service(icp_data)
+async def generate_icp(generate_icp_dto: GenerateICPDTO):
+    return await generate_icp_service(generate_icp_dto.messages, generate_icp_dto.icp_data)
 

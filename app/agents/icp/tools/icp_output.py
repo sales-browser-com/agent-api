@@ -1,21 +1,26 @@
 from langchain.tools import tool
-from app.agents.icp.tools.structured_output import ICPData
+
+from app.models.icp import ICPData
 
 
 @tool
-def icp_output_tool(input_data: ICPData) -> ICPData:
+def icp_output_tool(input_data: ICPData) -> str:
     """
-    Process and return the Ideal Customer Profile (ICP) data.
+    Receives the Ideal Customer Profile (ICP) data formulated by the LLM.
 
-    This tool receives structured ICP data containing targeting parameters for
-    potential customers and returns the processed data. It helps formalize the
-    ideal customer profile for targeted outreach.
+    This tool acts as a confirmation step. The LLM prepares the ICPData
+    and passes it to this tool. The tool itself currently just returns a
+    success message. Future enhancements could involve storing or validating
+    the ICPData.
 
     Args:
         input_data (ICPData): The structured ICP data containing targeting parameters
-                             such as industries, locations, job titles, etc.
+                             such as industries, locations, job titles, etc.,
+                             as populated by the LLM.
 
     Returns:
-        ICPData: The processed ICP data object.
+        str: A confirmation message indicating the ICP data was received.
     """
-    return input_data
+    # In a real scenario, you might save input_data to a database here
+    # print(f"ICP Data received by tool: {input_data.model_dump_json(indent=2)}")
+    return "Icp is updated successfully"
