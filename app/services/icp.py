@@ -36,28 +36,21 @@ async def generate_icp_service(messages: List[Message], icpData: ICPData) -> Dic
     extracted_data = {
         "tool_call_args": None,
         "tool_call_output_content": None,
-        "ai_response_content": None  # This will hold the content of the last AI message
+        # "ai_response_content": None  # This will hold the content of the last AI message
     }
 
     for msg in newly_added_messages:
         if isinstance(msg, AIMessage):
-            # Update ai_response_content with the content of this AIMessage.
-            # If it's an AI message after a tool call, this will be the final response.
-            # If it's an AI message that makes a tool call, this content might be preliminary.
             extracted_data["ai_response_content"] = msg.content
 
-            # Check for tool calls
             if msg.tool_calls and len(msg.tool_calls) > 0:
-                # Langchain's AIMessage.tool_calls is a list of ToolCall objects.
-                # Each ToolCall object has an 'args' attribute which is a dictionary.
-                # We'll take the arguments from the first tool call.
                 print(msg.tool_calls)
                 extracted_data["tool_call_args"] = msg.tool_calls[0]['args']
 
-        elif isinstance(msg, ToolMessage):
-            # This is the content returned by the tool execution.
-            extracted_data["tool_call_output_content"] = msg.content
-            # The ai_response_content will likely be updated by a subsequent AIMessage
-            # that processes this tool output.
+        # elif isinstance(msg, ToolMessage):
+        #     # This is the content returned by the tool execution.
+        #     extracted_data["tool_call_output_content"] = msg.content
+        #     # The ai_response_content will likely be updated by a subsequent AIMessage
+        #     # that processes this tool output.
 
     return extracted_data
