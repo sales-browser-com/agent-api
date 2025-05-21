@@ -15,9 +15,12 @@ def convert_app_message_to_lc_message(app_msg: AppMessage) -> BaseMessage:
             if isinstance(part, TextContent):
                 lc_content_parts.append({"type": "text", "text": part.text})
             elif isinstance(part, FileContent):
-                if "image" in part.mime_type:
+                if "file" in part.type:
                     lc_content_parts.append({
-                        "type": "image_url",
+                        "type": "file",
+                        "source_type": "base64",
+                        "mime_type": "application/pdf",
+                        "data": part.data,
                         "image_url": {"url": f"data:{part.mime_type};base64,{part.data}"}
                     })
                 elif "text" in part.mime_type: # e.g. text/plain that was base64 encoded
