@@ -7,8 +7,9 @@ langchain-core~=0.3.60
 langchain-google-genai~=2.1.4
 typing_extensions~=4.13.2
 pydantic-settings~=2.9.1
-typing_extensions~=4.13.2
+# typing_extensions~=4.13.2 # Duplicate removed
 pydantic~=2.11.4
-typing_extensions~=4.13.2
+# typing_extensions~=4.13.2 # Duplicate removed
 langchain~=0.3.25
-typing_extensions~=4.13.2
+# typing_extensions~=4.13.2 # Duplicate removed
+duckduckgo-search # Added for internet search
